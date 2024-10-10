@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EventSpotterWeb</title>
+    <link rel="stylesheet" href="~/css/bootswatchtheme.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EventSpotterWeb.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventSpotterWeb</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &&
+                        ViewContext.RouteData.Values["action"].ToString() == "Index")
+                        {
+                            // Alleen FAQ en Contact links voor de welkomstpagina
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/FAQ">FAQ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/Contact">Contact</a>
+                            </li>
+                        }
+                        else if (ViewContext.RouteData.Values["controller"].ToString() == "Participants" &&
+                        (ViewContext.RouteData.Values["action"].ToString() == "Login" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "Create"))
+                        {
+                            // Alleen FAQ en Contact links voor de deelnemers login pagina
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/FAQ">FAQ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/Contact">Contact</a>
+                            </li>
+                        }
+                        else if (ViewContext.RouteData.Values["controller"].ToString() == "Organizers" &&
+                        (ViewContext.RouteData.Values["action"].ToString() == "Login" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "Create"))
+                        {
+                            // Alleen FAQ en Contact links voor de organisatoren login pagina
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/FAQ">FAQ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/Contact">Contact</a>
+                            </li>
+                        }
+                        else
+                        {
+                            // Toon alle links op andere pagina's, behalve voor deelnemers
+                            <li class="nav-item">
+                                @* Hier veranderen we de link naar de home van de gebruiker *@
+                                @if (User.IsInRole("Organizer")) // Dit moet je aanpassen aan jouw rolstructuur
+                                {
+                                    <a class="nav-link active" asp-area="" asp-controller="Organizers" asp-action="Home">Home</a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link active" asp-area="" asp-controller="Participants" asp-action="Home">Home</a>
+                                }
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Reservations" asp-action="Index">My Reservations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">Upcoming Events</a> <!-- Toegevoegde link -->
+                            </li>
+
+                            @* De link "My Events" wordt alleen voor organisatoren getoond *@
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Organizers")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Events" asp-action="Index">My Events</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - EventSpotterWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

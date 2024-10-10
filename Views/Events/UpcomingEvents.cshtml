@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EventSpotterWeb.Models.Event>
+
+<h2>Upcoming Events</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Available Seats</th> <!-- Nieuw toegevoegd -->
+            <th>Reserve</th> <!-- Nieuw toegevoegd -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eventItem in Model)
+        {
+            <tr>
+                <td>@eventItem.Name</td>
+                <td>@eventItem.Date.ToString("dd MMM yyyy")</td>
+                <td>@eventItem.Location</td>
+                <td>@eventItem.Description</td>
+                <td>@eventItem.AvailableSeats</td> <!-- Weergeven beschikbare stoelen -->
+
+                <!-- Nieuw: Voeg een reserveringsknop toe -->
+                <td>
+                    @if (eventItem.AvailableSeats > 0) 
+                    {
+                        <form asp-action="Reserve" method="get">
+                            <input type="hidden" name="eventId" value="@eventItem.EventID" />
+                            <input type="hidden" name="participantId" value="1" /> <!-- Vervang met de juiste participantID -->
+                            <input type="number" name="numTickets" min="1" max="@eventItem.AvailableSeats" value="1" />
+                            <button type="submit" class="btn btn-primary">Reserve</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>No seats available</span> <!-- Laat zien dat het event vol is -->
+                    }
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="6">No upcoming events</td>
+            </tr>
+        }
+    </tbody>
+</table>

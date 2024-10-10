@@ -1,0 +1,88 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: black; /* Achtergrondkleur */
+    color: white; /* Tekstkleur */
+    font-family: Arial, sans-serif; /* Lettertype */
+}
+
+.btn {
+    background-color: #007bff; /* Knopkleur */
+    color: white; /* Tekstkleur op de knop */
+    border: none; /* Geen rand */
+    border-radius: 5px; /* Hoekafgeronde knoppen */
+    padding: 10px 20px; /* Ruimte binnen de knop */
+}
+
+.btn-danger {
+    background-color: red; /* Rood voor de 'Danger' knoppen */
+    color: white; /* Witte tekst op de knop */
+}
+
+    .btn-danger:hover {
+        background-color: darkred; /* Donkerder rood bij hover */
+    }
+
+.btn:hover {
+    background-color: #0056b3; /* Donkerder bij hover */
+}
+
+img {
+    max-width: 100%; /* Zorg ervoor dat afbeeldingen responsief zijn */
+    height: auto; /* Behoud de aspectverhouding */
+    border-radius: 5px; /* Hoekafgerond */
+}
+
+.table {
+    color: white; /* Tekstkleur voor de tabel */
+}
+
+    .table th {
+        background-color: #333; /* Achtergrondkleur voor de kop */
+        color: white; /* Tekstkleur voor de kop */
+    }
+
+    .table td {
+        background-color: #444; /* Achtergrondkleur voor de rijen */
+        color: white; /* Tekstkleur voor de rijen */
+    }
+
+/* Nieuwe klasse voor de button-container */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centreert de knoppen */
+    gap: 10px; /* Ruimte tussen knoppen */
+    margin: 20px 0; /* Ruimte boven en onder de knoppen */
+}
+.centered-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Zorg ervoor dat het de volledige hoogte van de viewport gebruikt */
+}
+
+.login-form {
+    width: 300px; /* Stel een breedte in voor het formulier */
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparante achtergrond */
+    padding: 20px;
+    border-radius: 10px; /* Afgeronde hoeken */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Schaduw voor diepte */
+}
